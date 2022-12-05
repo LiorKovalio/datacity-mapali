@@ -23,7 +23,8 @@
         {"display": "Automatic - MDY",                     "format": "auto_mdy"}
     ],
     "features": {
-        "forcePrivate": false
+        "forcePrivate": false,
+        "disableWebUi": true
     },
-    "defaultLocale": "mapali"
+    "defaultLocale": "he"
 }
