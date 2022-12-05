@@ -13,7 +13,7 @@ FROM akariv/dgp-app:latest
 COPY requirements.dev.txt .
 RUN sudo pip install -U -r requirements.dev.txt
 
-COPY --from=build /app/dist/mapali/ ui/dist/ui/mapali/
+COPY --from=build /app/dist/mapali/ ui/dist/ui/
 
 COPY configuration.json dags/
 COPY server_extra.py .
