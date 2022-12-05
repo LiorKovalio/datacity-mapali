@@ -1,0 +1,13 @@
+<ng-container *ngIf='config.model?.mapping'>
+    <ng-container *ngFor='let ct of COLUMN_TYPES'>
+        <div class='mapping'>
+            <span>מיפוי:</span>
+            <select [(ngModel)]='columnTypeMapping[ct]' (change)='updateMapping()'>
+                <option *ngFor='let cn of config.structure?.headers || []' [value]='cn'>{{cn}}</option>
+            </select>
+            <!-- <span class='column-name'>{{m.name}}</span> -->
+            <span>ל:</span>
+            <span><app-column-type-tag [columnType]='ct' [taxonomy]='config.taxonomy'></app-column-type-tag></span>
+        </div>
+    </ng-container>
+</ng-container>

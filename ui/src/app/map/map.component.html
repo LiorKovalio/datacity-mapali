@@ -1,0 +1,10 @@
+<div class='map' #map></div>
+<div class='info' *ngIf='title'>
+    <h1>{{title}}</h1>
+    <h2 *ngIf='description'>{{description}}</h2>
+    <a class='contact' *ngIf='contact' [href]='contactUrl'>{{contact}}</a>
+</div>
+<a class='publish' *ngIf='ready && lastId' (click)='process()'>
+    <span class='processing' *ngIf='processing'>..</span>
+    נראה טוב!
+</a>

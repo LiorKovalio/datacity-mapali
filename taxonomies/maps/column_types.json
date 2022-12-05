@@ -1,0 +1,44 @@
+[
+    {
+        "name": "name",
+        "title": "שם הנקודה",
+        "description": "שם תמציתי של הנקודה הנוכחית",
+        "dataType": "string"
+    },
+    {
+        "name": "address:full",
+        "title": "כתובת מלאה",
+        "description": "כתובת מלאה",
+        "dataType": "string"
+    },
+    {
+        "name": "address:city",
+        "title": "שם העיר",
+        "description": "העיר בכתובת",
+        "dataType": "string"
+    },
+    {
+        "name": "address:street",
+        "title": "רחוב",
+        "description": "שם הרחוב בכתובת",
+        "dataType": "string"
+    },
+    {
+        "name": "address:house-number",
+        "title": "מספר בית",
+        "description": "מספר הבית בכתובת",
+        "dataType": "string"
+    },
+    {
+        "name": "location:lat",
+        "title": "קו אורך",
+        "description": "קו האורך בנ.צ. של המיקום",
+        "dataType": "number"
+    },
+    {
+        "name": "location:lon",
+        "title": "קו רוחב",
+        "description": "קו הרוחב בנ.צ. של המיקום",
+        "dataType": "number"
+    }
+]

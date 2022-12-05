@@ -1,0 +1,16 @@
+<div>
+    <label>כותרת המפה:</label>
+    <input [(ngModel)]='config.package.title' (change)='changed()' />
+</div>
+<div>
+    <label>תיאור כללי:</label>
+    <input [(ngModel)]='config.package.description' (change)='changed()' />
+</div>
+<div>
+    <label>נוצר על ידי:</label>
+    <input [(ngModel)]='config.package.contact' (change)='changed()' />
+</div>
+<div>
+    <label>קישור:</label>
+    <input [(ngModel)]='config.package.contactUrl' (change)='changed()' />
+</div>

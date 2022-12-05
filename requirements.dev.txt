@@ -1,0 +1,2 @@
+dgp-server>=0.0.94
+https://github.com/akariv/dataflows-aws/archive/refs/heads/main.zip#egg=dataflows-aws

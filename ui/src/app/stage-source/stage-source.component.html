@@ -1,0 +1,27 @@
+<etl-file-uploader *ngIf='!config.loader.filename' (close)='config.loader.filename = $event; changed()'></etl-file-uploader>
+<ng-container *ngIf='config.loader.filename'>
+    <div *ngIf='config.source.format'>
+        <label>סוג הקובץ:</label>
+        <span *ngIf='config.source.format === "xls"'>Excel (xls)</span>
+        <span *ngIf='config.source.format === "xlsx"'>Excel (xlsx)</span>
+        <span *ngIf='config.source.format === "csv"'>CSV</span>
+    </div>
+    <ng-container *ngIf='config.source.sheet_names'>
+        <div>
+            <label i18n>גליון:</label>
+            <select [(ngModel)]='config.source.sheet' (change)='changed()'>
+            <option *ngFor='let x of config.source.sheet_names' [value]='x[1]'>{{x[1]}}</option>
+            </select>
+        </div>
+    </ng-container>
+    <ng-container *ngIf='config.source.format'>
+        <div>
+            <label i18n>דילוג על שורות:</label>
+            <input type='number'
+            min="0" max="100"
+            [(ngModel)]='config.structure.skip_rows'
+            (change)='changed()'
+            />
+        </div>
+    </ng-container>    
+</ng-container>

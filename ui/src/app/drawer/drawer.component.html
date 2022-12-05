@@ -1,0 +1,51 @@
+<img src='assets/logo.svg' class='logo' [class.large]='!loggedIn'/>
+<app-login *ngIf='!loggedIn' (login)='loggedIn = true'></app-login>
+<ng-container *ngIf='loggedIn'>
+    <ng-container *ngIf='!processing'>
+        <div class='section-container'>
+            <div class='section'>
+                <label>מידע כללי:</label>
+                <app-stage-metadata [config]='config' (updated)='updateConfig($event)'></app-stage-metadata>
+            </div>
+        </div>
+        <div class='section-container'>
+            <div class='section'>
+                <label>מקור המידע:</label>
+                <app-stage-source [config]='config' (updated)='updateConfig($event)'></app-stage-source>
+            </div>
+        </div>
+        <ng-container *ngIf='config.model?.mapping'>
+            <div class='section-container'>
+                <div class='section'>
+                    <label>מיפויים:</label>
+                    <app-stage-mapping [config]='config' (updated)='updateConfig($event)'></app-stage-mapping>
+                </div>
+            </div>
+        </ng-container>    
+    </ng-container>
+
+    <div class='section-container table-container' *ngIf='rows[selectedKind] && rows[selectedKind].length'>
+        <div class='section'>
+            <label>תצוגה מקדימה למידע:</label>
+            <div class='stage-selection'>
+                <a [class.active]='selectedKind === 0' (click)='selectedKind = 0'>מקור</a>
+                <a [class.active]='selectedKind === 1' (click)='selectedKind = 1'>מיפוי</a>
+                <a [class.active]='selectedKind === 2' (click)='selectedKind = 2'>מעובד</a>
+            </div>
+            <div class='table-scroller'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th *ngFor='let h of headers[selectedKind]'><app-column-type-tag [columnType]='h' [taxonomy]='this.config?.taxonomy'></app-column-type-tag></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let row of rows[selectedKind]'>
+                            <td *ngFor='let k of headers[selectedKind]'>{{processCell(row[k])}}</td>
+                        </tr>
+                    </tbody>
+                </table>    
+            </div>
+        </div>
+    </div>
+</ng-container>
