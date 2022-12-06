@@ -4,7 +4,7 @@ import dataflows as DF
 
 from dgp.core.base_enricher import enrichments_flows, BaseEnricher
 from dgp.core import BaseAnalyzer
-from dgp.config.consts import RESOURCE_NAME, CONFIG_URL, CONFIG_PUBLISH_ALLOWED
+from dgp.config.consts import RESOURCE_NAME, CONFIG_URL, CONFIG_PUBLISH_ALLOWED, CONFIG_MODEL_MAPPING
 from dgp.config.log import logger
 from dataflows_aws import dump_to_s3
 
@@ -44,7 +44,10 @@ class PathSetter(BaseAnalyzer):
 
 class BucketDumper(BaseEnricher):
     def test(self):
-        return True
+        mapping = self.config.get(CONFIG_MODEL_MAPPING)
+        if mapping is not None:
+            return all(any(m['columnType'] == k for m in mapping) for k in ['location:lon', 'location:lat'])
+        return False
 
     def bounds(self, props):
         props.setdefault('bounds', [[None, None],[None, None]])

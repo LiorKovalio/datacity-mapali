@@ -13,7 +13,12 @@ export class StageMetadataComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges() {
-    this.config.package = this.config.package || {};
+    this.config.package = this.config.package || {
+      title: null,
+      description: null,
+      contact: null,
+      contactUrl: null,
+    };
   }
 
   changed() {
