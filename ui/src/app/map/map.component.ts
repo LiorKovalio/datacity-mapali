@@ -45,7 +45,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
         this.processing = true;
       }
       if (status === 'done') {
-        this.router.navigate(['/', this.lastId]);
+        this.router.navigate(['/m', this.lastId]);
       }
     })
   }
