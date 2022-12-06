@@ -67,7 +67,7 @@ class BucketDumper(BaseEnricher):
 
             props = dict()
 
-            publishing = self.config.get(CONFIG_PUBLISH_ALLOWED, False)
+            publishing = self.config.get(CONFIG_PUBLISH_ALLOWED) or False
             cache_control = 'public, max-age=31536000' if publishing else 'no-cache'
 
             return DF.Flow(
