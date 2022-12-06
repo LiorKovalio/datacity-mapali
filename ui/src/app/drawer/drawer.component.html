@@ -4,14 +4,14 @@
     <ng-container *ngIf='!processing'>
         <div class='section-container'>
             <div class='section'>
-                <label>מידע כללי:</label>
-                <app-stage-metadata [config]='config' (updated)='updateConfig($event)'></app-stage-metadata>
-            </div>
-        </div>
-        <div class='section-container'>
-            <div class='section'>
                 <label>מקור המידע:</label>
                 <app-stage-source [config]='config' (updated)='updateConfig($event)'></app-stage-source>
+            </div>
+        </div>
+        <div class='section-container' *ngIf='config.model?.mapping'>
+            <div class='section'>
+                <label>מידע כללי:</label>
+                <app-stage-metadata [config]='config' (updated)='updateConfig($event)'></app-stage-metadata>
             </div>
         </div>
         <ng-container *ngIf='config.model?.mapping'>
