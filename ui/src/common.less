@@ -22,3 +22,19 @@
         display: none;
     }
 }
+
+.loader {
+    display: inline-block;
+    width: 24px;
+    height: 16px;
+    background-size: 16px;
+    background-position: right center;
+    background-repeat: no-repeat;
+
+    &.light {
+        background-image: url(assets/ball-triangle.svg);
+    }
+    &.dark {
+        background-image: url(assets/ball-triangle-dark.svg);
+    }
+}

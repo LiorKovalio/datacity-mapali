@@ -4,7 +4,7 @@ import dataflows as DF
 
 from dgp.core.base_enricher import enrichments_flows, BaseEnricher
 from dgp.core import BaseAnalyzer
-from dgp.config.consts import RESOURCE_NAME, CONFIG_URL
+from dgp.config.consts import RESOURCE_NAME, CONFIG_URL, CONFIG_PUBLISH_ALLOWED
 from dgp.config.log import logger
 from dataflows_aws import dump_to_s3
 
@@ -12,6 +12,7 @@ import hashlib
 
 BUCKET_NAME = os.environ['MAPS_S3_BUCKET_NAME']
 ENDPOINT_URL = os.environ['MAPS_S3_ENDPOINT_URL']
+REGION_NAME = os.environ['MAPS_S3_REGION_NAME']
 ACCESS_KEY_ID = os.environ['MAPS_S3_ACCESS_KEY_ID']
 SECRET_ACCESS_KEY = os.environ['MAPS_S3_SECRET_ACCESS_KEY']
 
@@ -66,13 +67,18 @@ class BucketDumper(BaseEnricher):
 
             props = dict()
 
+            publishing = self.config.get(CONFIG_PUBLISH_ALLOWED, False)
+            cache_control = 'public, max-age=31536000' if publishing else 'no-cache'
+
             return DF.Flow(
                 DF.update_resource(RESOURCE_NAME, path='data.geojson'),
                 DF.add_field('geometry', 'geopoint', lambda r: (r['location-lon'], r['location-lat'])),
                 self.bounds(props),
                 MyS3Dumper(BUCKET_NAME, 'public-read', hashstr, 
                     format='geojson',
-                    content_type=('application/geo+json', None), region_name='me-west1',
+                    content_type='application/geo+json',
+                    cache_control=cache_control,
+                    region_name=REGION_NAME,
                     endpoint_url=ENDPOINT_URL, aws_access_key_id=ACCESS_KEY_ID, aws_secret_access_key=SECRET_ACCESS_KEY,
                     datapackage_props=props
                 ),

@@ -1,5 +1,9 @@
 <etl-file-uploader *ngIf='!config.loader.filename' (close)='config.loader.filename = $event; changed()'></etl-file-uploader>
 <ng-container *ngIf='config.loader.filename'>
+    <div *ngIf='!config.source.format'>
+        <span class='loader dark'></span>
+        טוען נתונים...
+    </div>
     <div *ngIf='config.source.format'>
         <label>סוג הקובץ:</label>
         <span *ngIf='config.source.format === "xls"'>Excel (xls)</span>
