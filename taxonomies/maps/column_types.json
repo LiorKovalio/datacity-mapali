@@ -31,14 +31,14 @@
     },
     {
         "name": "location:lat",
-        "title": "קו אורך",
-        "description": "קו האורך בנ.צ. של המיקום",
+        "title": "קו רוחב",
+        "description": "קו הרוחב בנ.צ. של המיקום",
         "dataType": "number"
     },
     {
         "name": "location:lon",
-        "title": "קו רוחב",
-        "description": "קו הרוחב בנ.צ. של המיקום",
+        "title": "קו אורך",
+        "description": "קו האורך בנ.צ. של המיקום",
         "dataType": "number"
     }
 ]
