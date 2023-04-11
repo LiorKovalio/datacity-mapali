@@ -4,7 +4,19 @@
     <h2 *ngIf='description'>{{description}}</h2>
     <a class='contact' *ngIf='contact' [href]='contactUrl'>{{contact}}</a>
 </div>
-<a class='publish' *ngIf='ready && lastId' (click)='process()'>
-    <span class='loader light' *ngIf='processing'></span>
-    נראה טוב!
-</a>
+<ng-template [ngIf]='viewable' [ngIfElse]='elseBlock'>
+    <span class='publish'>
+        <a href='/m/{{lastId}}' target='_blank'>
+            לצפייה
+        </a>
+        <a (click)='publish()'>
+            לפרסום
+        </a>
+    </span>
+</ng-template>
+<ng-template #elseBlock>
+    <a class='publish' *ngIf='ready && lastId' (click)='process()'>
+        <span class='loader light' *ngIf='processing'></span>
+        נראה טוב!
+    </a>
+</ng-template>

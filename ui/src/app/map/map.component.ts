@@ -19,6 +19,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
   @Input() mapConfig: any;
   ready = false;
   processing = false
+  viewable = false;
   
   @ViewChild('map') mapEl: any;
   id = new ReplaySubject<string>(1);
@@ -41,11 +42,13 @@ export class MapComponent implements AfterViewInit, OnChanges {
       if (status === 'ready') {
         this.ready = true;
       }
-      if (status === 'processing') {
+      else if (status === 'processing') {
         this.processing = true;
+        this.viewable = false;
       }
-      if (status === 'done') {
-        this.router.navigate(['/m', this.lastId]);
+      else if (status === 'done') {
+        this.processing = false;
+        this.viewable = true;
       }
     })
   }
@@ -54,6 +57,13 @@ export class MapComponent implements AfterViewInit, OnChanges {
     if (this.mapConfig && this.mapConfig.mapPath) {
       this.id.next(this.mapConfig.mapPath);
     }
+  }
+
+  fetchDatapackage(id: string) {
+    const salt = (new Date()).getTime();
+    const url = `https://storage.googleapis.com/mapali-data/${id}/datapackage.json?${salt}`;
+    console.log(`fetching datapackage from salted ${url}`);
+    return this.http.get(url);
   }
 
   ngAfterViewInit(): void {
@@ -77,7 +87,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
         this.id.pipe(
           switchMap((id) => {
             console.log('MAP NEW ID', id);
-            return this.http.get(`https://storage.googleapis.com/mapali-data/${id}/datapackage.json`).pipe(
+            return this.fetchDatapackage(id).pipe(
               map((data: any) => {
                 console.log('DATAPACKAGE', data);
                 this.title = data.title;
@@ -145,6 +155,13 @@ export class MapComponent implements AfterViewInit, OnChanges {
   process() {
     if (!this.processing) {
       this.publisher.status.next('processing');
+    }
+  }
+
+  publish() {
+    if (!this.processing && this.viewable) {
+      this.viewable = false;
+      this.router.navigate(['/m', this.lastId]);
     }
   }
 }

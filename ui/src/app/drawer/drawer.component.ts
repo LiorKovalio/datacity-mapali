@@ -64,6 +64,7 @@ export class DrawerComponent implements OnInit {
           if (kind === 2 && this.config.mapPath && this.rows[kind].length) {
             if (this.processing) {
               this.publisher.status.next('done');
+              this.processing = false;
             } else {
               this.publisher.status.next('ready');
             }
@@ -92,6 +93,7 @@ export class DrawerComponent implements OnInit {
       // }
     });
     this.publisher.status.subscribe((status) => {
+      console.log('drawer subscribe: status', status);
       if (status === 'processing') {
         console.log('MAP Publish allowed');
         this.config['publish'] = {allowed: true};
